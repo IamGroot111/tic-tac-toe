@@ -16,10 +16,13 @@ class game:
             
             print('\n')
     
+    def play(self):
+        
+    
     def player_one(self):
         
-        pos=int(input("Enter the position to play X : "))
-        status=self.__modify_board(pos,"X  ")
+        pos=str(input("Enter the position to play X : "))
+        status=self.__modify_board(pos.split(),"X  ")
 
         if(status==None):
             self.turn_count+=1
@@ -34,8 +37,8 @@ class game:
             print('\n'+"DRAW!"+'\n')
             return 
 
-        pos=int(input("Enter the position to play O : "))
-        status=self.__modify_board(pos,"O  ")
+        pos=str(input("Enter the position to play O : "))
+        status=self.__modify_board(pos.split(),"O  ")
        
         if(status==None):
             self.turn_count+=1
@@ -46,33 +49,36 @@ class game:
     def __modify_board(self,inp,letter):
         
         count=0
+        i,j=inp
         
-        for i in range(3):
-            for j in range(3):
-                count+=1
-                
-                if(count==inp):
-                    if(self.board[i][j]=='__ '):
-                        self.board[i][j]=letter
-                        self.print_board()
-                    
-                    else:
-                        print('\n'+"position already played!"+'\n'+"Try again.."+'\n')
-                        return ("again")
-                    
-                    if(self.__check_for_win()==True):
-                        
-                        if (letter=="X  "): print("player 1 has won!"+'\n')
-                        if (letter=="O  "): print("player 2 has won!"+'\n')
-                        return ("stop")
-
-                    return None
+        if(self.board[i][j]=='__ '):
+            self.board[i][j]=letter
+            self.print_board()
+        
+        else:
+            print('\n'+"position already played!"+'\n'+"Try again.."+'\n')
+            return ("again")
+        
+        if(self.__check_for_win()):
+            
+            if (letter=="X  "): print("player 1 has won!"+'\n')
+            if (letter=="O  "): print("player 2 has won!"+'\n')
+            return ("stop")
      
-        if(count==9):
+        if(i>2 or j>2):
             print('\n'+"Invalid Position"+'\n'+"try again..."+'\n')
             return ("again")
+
+        else:
+            return None
     
     def __check_for_win(self):
+
+        if (self.board[0][0]==self.board[1][1]==self.board[2][2]!='__ '):
+            return True
+        
+        if (self.board[0][2]==self.board[1][1]==self.board[2][0]!='__ '):
+            return True
        
         for i in range(3):
            
@@ -81,15 +87,9 @@ class game:
            
             if (self.board[0][i]==self.board[1][i]==self.board[2][i]!='__ '):
                 return True
-           
-            if (self.board[0][0]==self.board[1][1]==self.board[2][2]!='__ '):
-                return True
-           
-            if (self.board[0][2]==self.board[1][1]==self.board[2][0]!='__ '):
-                return True
-           
-            else:
-                return False
+       
+        return False
+        
 
 
 
