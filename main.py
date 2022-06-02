@@ -23,17 +23,17 @@ class game:
             return 
         
         if(self.turn_count%2==1):
+            let="X  "
+       
+        else:            
+            let="O  "
+
             pos=[]
-            while(len(pos.split())!=2):
-                pos=str(input("Enter the position to play X : "))
+            while(len(pos)!=2):
+                pos=str(input("Enter the position to play ",let,": "))
+                pos=pos.split()
                                     
-            status=self.__modify_board(pos.split(),"X  ")
-        else:
-            pos=[]
-            while(len(pos.split())!=2):
-                pos=str(input("Enter the position to play O : "))
-               
-            status=self.__modify_board(pos.split(),"O  ")
+            status=self.__modify_board(pos,let)
                
         if(status==None):
             self.turn_count+=1
