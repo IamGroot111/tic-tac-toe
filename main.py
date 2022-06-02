@@ -28,12 +28,17 @@ class game:
         else:            
             let="O  "
 
-            pos=[]
-            while(len(pos)!=2):
-                pos=str(input("Enter the position to play ",let,": "))
-                pos=pos.split()
-                                    
-            status=self.__modify_board(pos,let)
+        pos=[]
+        while(len(pos)!=2):
+            pos=str(input("Enter the position to play "+let+": "))
+            pos=pos.split()
+            i,j=pos
+            i,j=int(i),int(j)
+
+            if(i>2 or j>2):
+                print('\n'+"Invalid Position"+'\n'+"try again..."+'\n')
+                                
+        status=self.__modify_board(pos,let)
                
         if(status==None):
             self.turn_count+=1
@@ -43,15 +48,6 @@ class game:
             self.play()
     
     def __modify_board(self,inp,letter):
-        
-        count=0
-        i,j=inp
-        i,j=int(i),int(j)
-
-        if(i>2 or j>2):
-            print('\n'+"Invalid Position"+'\n'+"try again..."+'\n')
-            return ("again")
-
         
         if(self.board[i][j]=='__ '):
             self.board[i][j]=letter
