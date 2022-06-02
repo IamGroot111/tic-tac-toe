@@ -32,13 +32,15 @@ class game:
         while(len(pos)!=2):
             pos=str(input("Enter the position to play "+let+": "))
             pos=pos.split()
-            i,j=pos
-            i,j=int(i),int(j)
+       
+        i,j=pos
+        i,j=int(i),int(j)
 
-            if(i>2 or j>2):
-                print('\n'+"Invalid Position"+'\n'+"try again..."+'\n')
+        while(i>2 or j>2):
+            self.play() 
+          
                                 
-        status=self.__modify_board(pos,let)
+        status=self.__modify_board(i,j,let)
                
         if(status==None):
             self.turn_count+=1
@@ -47,7 +49,7 @@ class game:
         if(status=="again"):
             self.play()
     
-    def __modify_board(self,inp,letter):
+    def __modify_board(self,i,j,letter):
         
         if(self.board[i][j]=='__ '):
             self.board[i][j]=letter
