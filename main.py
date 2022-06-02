@@ -2,9 +2,9 @@ class game:
    
     def __init__(self):
         self.board=[['__ ' for i in range(3)] for j in range(3)]
-        self.turn_count=0       
+        self.turn_count=1      
         self.print_board()
-        self.player_one()
+        self.play()
         
    
     def print_board(self):      
@@ -17,39 +17,41 @@ class game:
             print('\n')
     
     def play(self):
-        
-    
-    def player_one(self):
-        
-        pos=str(input("Enter the position to play X : "))
-        status=self.__modify_board(pos.split(),"X  ")
-
-        if(status==None):
-            self.turn_count+=1
-            self.player_two()
-       
-        if(status=="again"):
-            self.player_one()
-
-    def player_two(self):
        
         if(self.turn_count==9):
             print('\n'+"DRAW!"+'\n')
             return 
-
-        pos=str(input("Enter the position to play O : "))
-        status=self.__modify_board(pos.split(),"O  ")
-       
+        
+        if(self.turn_count%2==1):
+            pos=[]
+            while(len(pos)!=2):
+                pos=str(input("Enter the position to play X : "))
+                                    
+            status=self.__modify_board(pos.split(),"X  ")
+        else:
+            pos=[]
+            while(len(pos)!=2):
+                pos=str(input("Enter the position to play O : "))
+               
+            status=self.__modify_board(pos.split(),"O  ")
+               
         if(status==None):
             self.turn_count+=1
-            self.player_one()
+            self.play()
+       
         if(status=="again"):
-            self.player_two()
+            self.play()
     
     def __modify_board(self,inp,letter):
         
         count=0
         i,j=inp
+        i,j=int(i),int(j)
+
+        if(i>2 or j>2):
+            print('\n'+"Invalid Position"+'\n'+"try again..."+'\n')
+            return ("again")
+
         
         if(self.board[i][j]=='__ '):
             self.board[i][j]=letter
@@ -65,10 +67,6 @@ class game:
             if (letter=="O  "): print("player 2 has won!"+'\n')
             return ("stop")
      
-        if(i>2 or j>2):
-            print('\n'+"Invalid Position"+'\n'+"try again..."+'\n')
-            return ("again")
-
         else:
             return None
     
