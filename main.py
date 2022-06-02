@@ -24,13 +24,13 @@ class game:
         
         if(self.turn_count%2==1):
             pos=[]
-            while(len(pos)!=2):
+            while(len(pos.split())!=2):
                 pos=str(input("Enter the position to play X : "))
                                     
             status=self.__modify_board(pos.split(),"X  ")
         else:
             pos=[]
-            while(len(pos)!=2):
+            while(len(pos.split())!=2):
                 pos=str(input("Enter the position to play O : "))
                
             status=self.__modify_board(pos.split(),"O  ")
